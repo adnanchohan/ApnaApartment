@@ -510,6 +510,7 @@ function renderApartments(apartments) {
             </button>
           </div>
         </div>
+
       </div>
     `;
     grid.appendChild(card);
@@ -649,7 +650,33 @@ function setupEventListeners() {
     }, 1500);
   });
 
+  // Footer connect form submission handling (simulated)
+  document.getElementById("footer-connect-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById("footer-form-submit-btn");
+    const initialText = submitBtn.innerHTML;
+    
+    // Animate state change
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> Sending Details...`;
+
+    setTimeout(() => {
+      submitBtn.innerHTML = `<i class="fas fa-check-circle"></i> Details Sent Successfully!`;
+      submitBtn.style.backgroundColor = "var(--accent-green)";
+      
+      // Reset after a delay
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = initialText;
+        submitBtn.style.backgroundColor = "";
+        e.target.reset();
+        showToast("Thank you! Our representative will connect with you shortly.");
+      }, 2000);
+    }, 1500);
+  });
+
   // Mobile navigation hamburger toggle
+
   const mobileMenuBtn = document.getElementById("mobile-menu-btn");
   const navLinks = document.getElementById("nav-links");
 

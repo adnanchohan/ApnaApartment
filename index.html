@@ -176,7 +176,121 @@
 
   </main>
 
+  <!-- --- Footer & Contact Us Section --- -->
+  <footer class="main-footer">
+    
+    <!-- Contact Us & Inquiry Form Section -->
+    <div class="footer-contact-section">
+      <div class="container footer-contact-container">
+        
+        <!-- Left Side: Connect Form -->
+        <div class="footer-form-col">
+          <h3>Connect with Our Team</h3>
+          <p>Interested in selling or purchasing an apartment? Send us your details, and our representative will connect with you within 24 hours.</p>
+          
+          <form class="footer-inquiry-form" id="footer-connect-form">
+            <div class="footer-form-grid">
+              <div class="form-group-footer">
+                <label for="footer-name">Full Name</label>
+                <input type="text" id="footer-name" class="form-control" placeholder="e.g. Adnan Chohan" required>
+              </div>
+              <div class="form-group-footer">
+                <label for="footer-phone">Phone Number</label>
+                <input type="tel" id="footer-phone" class="form-control" placeholder="e.g. +92 300 1234567" required>
+              </div>
+              <div class="form-group-footer">
+                <label for="footer-email">Email Address</label>
+                <input type="email" id="footer-email" class="form-control" placeholder="e.g. adnan@example.com" required>
+              </div>
+              <div class="form-group-footer">
+                <label for="footer-purpose">Inquiry Purpose</label>
+                <select id="footer-purpose" class="form-control" required>
+                  <option value="" disabled selected>Select option</option>
+                  <option value="purchase">I want to Purchase an Apartment</option>
+                  <option value="sell">I want to Sell my Apartment</option>
+                  <option value="rent_in">I want to Rent an Apartment</option>
+                  <option value="rent_out">I want to Lease/Rent Out my Apartment</option>
+                </select>
+              </div>
+              <div class="form-group-footer full-width-footer">
+                <label for="footer-property-details">Property Details & Target Area</label>
+                <input type="text" id="footer-property-details" class="form-control" placeholder="e.g. 3-Bed Apartment in Clifton, Karachi or DHA Phase 6, Lahore" required>
+              </div>
+              <div class="form-group-footer full-width-footer">
+                <label for="footer-message">Additional Requirements / Message</label>
+                <textarea id="footer-message" class="form-control" rows="3" placeholder="Describe any specific requirements (e.g. furnished, floor range, target budget)..."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="submit-footer-btn" id="footer-form-submit-btn">
+              <i class="far fa-paper-plane"></i> Send Details
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Side: Corporate details & Links -->
+        <div class="footer-info-col">
+          <div class="footer-logo">
+            <i class="fas fa-city"></i> Apna<span>Apartments</span>
+          </div>
+          <p class="footer-about">
+            ApnaApartments.com is Pakistan's premier real estate search platform focused exclusively on apartments. We list verified homes, connect buyers and tenants directly with dedicated representatives, and simplify property management.
+          </p>
+          
+          <div class="footer-contact-details">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Corporate HQ: 4th Floor, Emaar Towers, Crescent Bay, DHA Phase 8, Karachi, Pakistan.</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone-alt"></i>
+              <span>+92 300 1234567 / +92 21 34567890</span>
+            </div>
+            <div class="contact-item">
+              <i class="far fa-envelope"></i>
+              <span>info@apnaapartments.com / support@apnaapartments.com</span>
+            </div>
+          </div>
+
+          <div class="footer-quick-links-row">
+            <div class="footer-links-col">
+              <h4>Popular Cities</h4>
+              <ul>
+                <li><a href="#">Karachi Apartments</a></li>
+                <li><a href="#">Lahore Apartments</a></li>
+                <li><a href="#">Islamabad Apartments</a></li>
+              </ul>
+            </div>
+            <div class="footer-links-col">
+              <h4>Corporate</h4>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom copyright bar -->
+    <div class="footer-bottom-bar">
+      <div class="container footer-bottom-container">
+        <p>&copy; 2026 ApnaApartments.com. All rights reserved. Designed by Muhammad Adnan Chohan & Maria Narejo.</p>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
   <!-- --- Wishlist/Shortlist Sidebar Drawer --- -->
+
   <div class="favorites-drawer" id="favorites-drawer">
     <div class="drawer-header">
       <h3>Shortlisted Properties (<span id="fav-trigger-count">0</span>)</h3>
@@ -325,7 +439,14 @@
     </div>
   </div>
 
+  <!-- --- Floating WhatsApp Action Button --- -->
+  <a href="https://wa.me/923001234567?text=Hi%2C%20I%20am%20interested%20in%20apartments%20listed%20on%20ApnaApartments.com.%20Please%20share%20details." 
+     target="_blank" class="whatsapp-fab" id="whatsapp-fab" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
   <!-- --- Leaflet Map JS --- -->
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
           crossorigin=""></script>
