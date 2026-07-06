@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApnaApartments.com - Premium Apartments for Sale & Rent in Pakistan</title>
+  <meta name="description" content="Find your dream apartment in Karachi, Lahore, and Islamabad. Search and filter high-end luxury properties, view live interactive maps, and connect directly via WhatsApp or Call.">
+  
+  <!-- Favicon placeholder (Uses FontAwesome house icon) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏢</text></svg>">
+
+  <!-- Leaflet CSS for Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+        crossorigin="" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- --- Header Section --- -->
+  <header class="header">
+    <div class="container header-container">
+      <!-- Brand Logo -->
+      <a href="index.html" class="logo" id="brand-logo">
+        <i class="fas fa-city"></i> Apna<span>Apartments</span>
+      </a>
+
+      <!-- Navigation links (Zameen Reference) -->
+      <nav class="nav-links" id="nav-links">
+        <a href="#" class="nav-link active">Properties</a>
+        <a href="#" class="nav-link">Buying Guide</a>
+        <a href="#" class="nav-link">Market Trends</a>
+        <a href="#" class="nav-link">New Projects</a>
+      </nav>
+
+      <!-- Shortlist Button Trigger -->
+      <div class="header-actions">
+        <button class="btn-shortlist-trigger" onclick="toggleFavoritesDrawer()" id="favorites-trigger-btn">
+          <i class="fas fa-heart"></i>
+          <span>Shortlist</span>
+          <span class="badge-count" id="fav-badge-count">0</span>
+        </button>
+        
+        <!-- Mobile Hamburger button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- --- Hero Section with Background and Filters --- -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h2 class="hero-tagline">Find Your Dream Apartment</h2>
+        <p class="hero-subtext">Pakistan's premier apartment portal. Buy or Rent verified apartments in Karachi, Lahore & Islamabad.</p>
+      </div>
+
+      <!-- Premium Filter Card (Zameen Inspired) -->
+      <div class="search-filter-section">
+        <!-- Purpose Tabs (Rent vs Buy) -->
+        <div class="purpose-tabs-row">
+          <div class="tabs-group" role="tablist">
+            <button class="purpose-tab active" id="tab-all" role="tab" aria-selected="true">All Properties</button>
+            <button class="purpose-tab" id="tab-buy" role="tab" aria-selected="false">Buy</button>
+            <button class="purpose-tab" id="tab-rent" role="tab" aria-selected="false">Rent</button>
+          </div>
+          <h1 class="search-title-heading">Explore Apartments</h1>
+        </div>
+
+        <!-- Primary Filter Dropdowns -->
+        <div class="filter-inputs-grid">
+          
+          <!-- Search box -->
+          <div class="input-wrapper">
+            <label for="search-input">Search Keywords</label>
+            <div class="search-box-wrap">
+              <i class="fas fa-search"></i>
+              <input type="text" id="search-input" class="form-control" placeholder="e.g. DHA, Penthouse, Clifton...">
+            </div>
+          </div>
+
+          <!-- City Selection -->
+          <div class="input-wrapper">
+            <label for="filter-city">City Location</label>
+            <select id="filter-city" class="form-control">
+              <option value="all">All Cities</option>
+              <option value="Karachi">Karachi</option>
+              <option value="Lahore">Lahore</option>
+              <option value="Islamabad">Islamabad</option>
+              <option value="Rawalpindi">Rawalpindi</option>
+            </select>
+          </div>
+
+          <!-- Furnished Status -->
+          <div class="input-wrapper">
+            <label for="filter-furnished">Furnished Status</label>
+            <select id="filter-furnished" class="form-control">
+              <option value="all">Any Status</option>
+              <option value="furnished">Fully Furnished</option>
+              <option value="unfurnished">Unfurnished</option>
+              <option value="semi-furnished">Semi-Furnished</option>
+            </select>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="input-wrapper" style="justify-content: flex-end;">
+            <button class="form-control" style="background-color: var(--secondary); color: white; border: none; font-weight: 600;" onclick="filterApartments()">
+              <i class="fas fa-sliders-h"></i> Filter
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Secondary Filters Row -->
+        <div class="filter-row-secondary">
+          
+          <!-- Bedrooms Quick select -->
+          <div class="bedroom-selector">
+            <span>Bedrooms:</span>
+            <div class="bed-btn-group" role="group">
+              <button class="bed-btn active" data-beds="all">All</button>
+              <button class="bed-btn" data-beds="1">1</button>
+              <button class="bed-btn" data-beds="2">2</button>
+              <button class="bed-btn" data-beds="3">3</button>
+              <button class="bed-btn" data-beds="4">4+</button>
+            </div>
+          </div>
+
+          <!-- Price Range Slider -->
+          <div class="price-slider-wrap">
+            <label for="price-range" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Budget limit</label>
+            <input type="range" id="price-range" min="20000" max="150000000" step="50000" value="150000000">
+            <span class="price-label-display" id="price-value">Up to: PKR 15 Crore</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- Main Wrapper with Split Map/Listing View --- -->
+  <main class="main-wrapper">
+
+    <!-- Left Content Column -->
+    <section class="content-pane">
+
+      <!-- Results stats & Reset link -->
+      <div class="listings-meta">
+        <h2 id="results-count">0 Properties Found</h2>
+        <a href="#" class="reset-filters-link" onclick="resetAllFilters()" id="reset-filters-btn">
+          <i class="fas fa-undo"></i> Reset Filters
+        </a>
+      </div>
+
+      <!-- Listings Grid Panel -->
+      <div class="listings-grid" id="listings-grid">
+        <!-- Javascript injects listing cards here dynamically -->
+      </div>
+
+    </section>
+
+    <!-- Right Map Column (Leaflet map sticked) -->
+    <aside class="map-pane">
+      <div id="map-view" aria-label="Interactive Map of Apartments"></div>
+    </aside>
+
+  </main>
+
+  <!-- --- Wishlist/Shortlist Sidebar Drawer --- -->
+  <div class="favorites-drawer" id="favorites-drawer">
+    <div class="drawer-header">
+      <h3>Shortlisted Properties (<span id="fav-trigger-count">0</span>)</h3>
+      <button class="close-drawer-btn" onclick="toggleFavoritesDrawer()" aria-label="Close Shortlist">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="drawer-content" id="favorites-list">
+      <!-- Shortlisted listings populated dynamically -->
+    </div>
+  </div>
+  <div class="drawer-backdrop" onclick="toggleFavoritesDrawer()"></div>
+
+  <!-- --- Property Details modal --- -->
+  <div class="modal-overlay" id="details-modal">
+    <div class="modal-container">
+      <button class="close-modal" aria-label="Close details modal"><i class="fas fa-times"></i></button>
+      
+      <div class="modal-layout-grid">
+        
+        <!-- Left Side: Image Gallery & Specifications -->
+        <div class="modal-gallery-col">
+          <!-- Slideshow wrapper -->
+          <div class="modal-slides-wrap">
+            <div id="modal-slides-container">
+              <!-- Slides injected here by Javascript -->
+            </div>
+            <!-- Slide Arrows -->
+            <button class="slide-ctrl prev-slide" onclick="changeSlide(-1)" aria-label="Previous Image"><i class="fas fa-chevron-left"></i></button>
+            <button class="slide-ctrl next-slide" onclick="changeSlide(1)" aria-label="Next Image"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <!-- Slideshow Dots -->
+          <div class="modal-dots-row" id="modal-slides-dots"></div>
+
+          <!-- Quick Specifications badge icons -->
+          <div class="modal-specs-subgrid">
+            <div class="spec-badge-box">
+              <i class="fas fa-bed"></i>
+              <span id="modal-spec-beds">- Beds</span>
+            </div>
+            <div class="spec-badge-box">
+              <i class="fas fa-bath"></i>
+              <span id="modal-spec-baths">- Baths</span>
+            </div>
+            <div class="spec-badge-box">
+              <i class="fas fa-ruler-combined"></i>
+              <span id="modal-spec-area">- SqFt</span>
+            </div>
+          </div>
+
+          <!-- Amenities section -->
+          <div class="amenities-wrap">
+            <h4>Property Features</h4>
+            <ul id="modal-amenities-list">
+              <!-- Features injected by Javascript -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right Side: Details Information & Inquire -->
+        <div class="modal-details-col">
+          <div class="modal-details-header">
+            <span class="purpose-tag-inline" id="modal-apt-purpose">-</span>
+            <h3 id="modal-apt-title">Apartment Title Here</h3>
+            <div class="modal-details-price" id="modal-apt-price">PKR 0.00</div>
+            <div class="modal-details-loc"><i class="fas fa-map-marker-alt"></i> <span id="modal-apt-location">-</span></div>
+          </div>
+
+          <p class="modal-details-desc" id="modal-apt-description">Detailed property description showing all features.</p>
+
+          <!-- Specifications Table (Zameen layout style) -->
+          <table class="specs-table">
+            <tbody>
+              <tr>
+                <td class="label-td">Furnished Status</td>
+                <td class="value-td" id="modal-apt-furnished">-</td>
+              </tr>
+              <tr>
+                <td class="label-td">Floor Level</td>
+                <td class="value-td" id="modal-apt-floor">-</td>
+              </tr>
+              <tr>
+                <td class="label-td">Property Type</td>
+                <td class="value-td">Apartment / Flat</td>
+              </tr>
+              <tr>
+                <td class="label-td">Verification Status</td>
+                <td class="value-td" style="color: var(--primary);"><i class="fas fa-check-circle"></i> Verified Listing</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Action buttons -->
+          <div class="modal-action-bar">
+            <a href="#" class="modal-btn modal-btn-call" id="modal-call-btn">
+              <i class="fas fa-phone-alt"></i> Call Now
+            </a>
+            <a href="#" target="_blank" class="modal-btn modal-btn-wa" id="modal-wa-btn">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <button class="modal-btn modal-btn-form" id="modal-form-btn">
+              <i class="far fa-envelope"></i> Send Email
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- --- Contact / Inquiry Modal --- -->
+  <div class="modal-overlay" id="contact-modal">
+    <div class="modal-container inquiry-modal-container">
+      <button class="close-modal" aria-label="Close inquiry modal"><i class="fas fa-times"></i></button>
+      
+      <div class="inquiry-header">
+        <h3 id="contact-modal-title">Inquire about Property</h3>
+        <p id="contact-property-details">Property details summary</p>
+      </div>
+
+      <form class="inquiry-form" id="contact-form-submit">
+        <div class="form-group-inquiry">
+          <label for="inquiry-name">Your Full Name</label>
+          <input type="text" id="inquiry-name" class="form-control" placeholder="e.g. Adnan Chohan" required>
+        </div>
+        
+        <div class="form-group-inquiry">
+          <label for="inquiry-email">Email Address</label>
+          <input type="email" id="inquiry-email" class="form-control" placeholder="e.g. adnan@example.com" required>
+        </div>
+
+        <div class="form-group-inquiry">
+          <label for="inquiry-phone">Phone Number</label>
+          <input type="tel" id="inquiry-phone" class="form-control" placeholder="e.g. +92 300 1234567" required>
+        </div>
+
+        <div class="form-group-inquiry">
+          <label for="inquiry-message">Your Message</label>
+          <textarea id="inquiry-message" class="form-control" rows="4" required>I am highly interested in this apartment. Please share details regarding viewing times and purchase procedures. Thank you!</textarea>
+        </div>
+
+        <button type="submit" class="submit-inquiry-btn">
+          <i class="far fa-paper-plane"></i> Send Inquiry
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- --- Leaflet Map JS --- -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+          crossorigin=""></script>
+
+  <!-- --- Application Logic Script --- -->
+  <script src="app.js"></script>
+</body>
+</html>
