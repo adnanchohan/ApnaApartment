@@ -302,6 +302,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // --- 4. Map Functions ---
 function initMap() {
+  const mapContainer = document.getElementById("map-view");
+  if (!mapContainer || window.getComputedStyle(mapContainer).display === "none") {
+    return; // Skip initialization if map is hidden in CSS
+  }
+
   // Center map on Pakistan center (e.g. Islamabad coordinates area or average of data)
   map = L.map("map-view").setView([31.5, 71.5], 6); // Global view of Pakistan
 
@@ -317,6 +322,7 @@ function initMap() {
 }
 
 function updateMapMarkers(apartments) {
+  if (!map || !markersGroup) return; // Skip if map is not initialized
   markersGroup.clearLayers();
   
   if (apartments.length === 0) return;

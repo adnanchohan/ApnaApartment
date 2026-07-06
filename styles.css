@@ -263,13 +263,14 @@ button {
 
 /* Left Pane: Content, Filters & Grid */
 .content-pane {
-  width: calc(100% - var(--map-width));
+  width: 100%; /* Spans full width when map is hidden */
   padding: 32px 40px;
   overflow-y: auto;
 }
 
 /* Right Pane: Sticky Leaflet Map */
 .map-pane {
+  display: none; /* Hidden for now */
   width: var(--map-width);
   height: calc(100vh - var(--header-height));
   position: sticky;
